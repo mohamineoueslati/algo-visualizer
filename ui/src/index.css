@@ -5,10 +5,10 @@
   --border-color: rgba(255, 255, 255, 0.1);
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  
+
   --accent-color: #3b82f6;
   --accent-glow: rgba(59, 130, 246, 0.5);
-  
+
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --danger-color: #ef4444;
@@ -29,16 +29,15 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
   background: radial-gradient(circle at top left, #1e293b, #0f172a);
+  overflow-x: hidden;
 }
 
 #root {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
 }
 
@@ -102,17 +101,23 @@ button:disabled {
 .app-container {
   display: flex;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 }
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 300px;
-  height: 100%;
+  height: 100vh;
   border-right: 1px solid var(--border-color);
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow-y: auto;
+  z-index: 100;
+  box-sizing: border-box;
 }
 
 .sidebar h1 {
@@ -120,6 +125,7 @@ button:disabled {
   margin: 0 0 16px 0;
   background: linear-gradient(to right, #60a5fa, #a78bfa);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -163,22 +169,28 @@ button:disabled {
   display: flex;
   flex-direction: column;
   padding: 32px;
-  overflow: auto;
+  margin-left: 300px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* Visualizer Container */
 .visualizer-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   overflow: hidden;
   position: relative;
 }
 
 .visualizer-header {
-  padding: 24px;
+  padding: 0 0 20px 0;
   border-bottom: 1px solid var(--border-color);
+  margin-bottom: 28px;
 }
 
 .visualizer-header h2 {
@@ -187,9 +199,7 @@ button:disabled {
 }
 
 .visualizer-canvas {
-  flex: 1;
   padding: 32px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -208,13 +218,18 @@ button:disabled {
 
 /* Controls */
 .controls-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   padding: 16px 24px;
-  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .progress-container {
@@ -367,13 +382,27 @@ button:disabled {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .animate-in {
@@ -459,4 +488,119 @@ button:disabled {
   border: 1px solid rgba(59, 130, 246, 0.25);
   font-weight: 500;
   vertical-align: middle;
+}
+
+/* App.jsx Extracted Styles */
+.error-message {
+  color: var(--danger-color);
+}
+
+.problem-description {
+  margin: 8px 0 0 0;
+}
+
+.inputs-section-title {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.type-badge-inline {
+  opacity: 0.6;
+  font-size: 0.8em;
+  margin-left: 4px;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: inherit;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.run-custom-btn {
+  margin-top: 16px;
+}
+
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  animation: bounce 1s infinite;
+}
+
+/* TreeVisualizer.jsx Extracted Styles */
+.tree-node-circle {
+  transition: all 0.3s ease;
+}
+
+.tree-container-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  padding: 16px;
+}
+
+.tree-svg-canvas {
+  overflow: visible;
+}
+
+/* MatrixVisualizer.jsx Extracted Styles */
+.matrix-container-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+.matrix-row {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.matrix-cell-wrapper {
+  position: relative;
+}
+
+.matrix-cell {
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+}
+
+.matrix-pointers {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.visualizer-canvas-empty {
+  min-height: 200px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.empty-state-text {
+  font-size: 1.1rem;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+}
+
+.matrix-pointer-badge {
+  font-size: 0.65rem;
+  padding: 2px 4px;
 }

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const VariableVisualizer = ({ data, name }) => {
   return (
     <div className="variable-card glass animate-in">
@@ -11,7 +9,7 @@ const VariableVisualizer = ({ data, name }) => {
 
 const VariablesGrid = ({ variables }) => {
   if (variables.length === 0) return null;
-  
+
   return (
     <div className="variables-grid">
       {variables.map(([name, data]) => (

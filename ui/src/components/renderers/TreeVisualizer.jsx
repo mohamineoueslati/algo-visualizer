@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TreeNode = ({ node, pointers = {}, x, y, level }) => {
   if (!node) return null;
 
@@ -18,37 +16,37 @@ const TreeNode = ({ node, pointers = {}, x, y, level }) => {
     <g className="tree-node-group animate-in">
       {/* Left Child Link */}
       {node.left && (
-        <line 
-          x1={x} y1={y} 
-          x2={x - X_OFFSET} y2={y + Y_OFFSET} 
-          stroke="var(--border-color)" 
-          strokeWidth="2" 
+        <line
+          x1={x} y1={y}
+          x2={x - X_OFFSET} y2={y + Y_OFFSET}
+          stroke="var(--border-color)"
+          strokeWidth="2"
         />
       )}
-      
+
       {/* Right Child Link */}
       {node.right && (
-        <line 
-          x1={x} y1={y} 
-          x2={x + X_OFFSET} y2={y + Y_OFFSET} 
-          stroke="var(--border-color)" 
-          strokeWidth="2" 
+        <line
+          x1={x} y1={y}
+          x2={x + X_OFFSET} y2={y + Y_OFFSET}
+          stroke="var(--border-color)"
+          strokeWidth="2"
         />
       )}
 
       {/* Current Node */}
-      <circle 
-        cx={x} cy={y} 
-        r={RADIUS} 
-        fill={fillColor} 
-        stroke={strokeColor} 
+      <circle
+        cx={x} cy={y}
+        r={RADIUS}
+        fill={fillColor}
+        stroke={strokeColor}
         strokeWidth={isHighlight || isMatch ? '4' : '2'}
-        style={{ transition: 'all 0.3s ease' }}
+        className="tree-node-circle"
       />
-      <text 
-        x={x} y={y} 
-        textAnchor="middle" 
-        dominantBaseline="central" 
+      <text
+        x={x} y={y}
+        textAnchor="middle"
+        dominantBaseline="central"
         fill="var(--text-primary)"
         fontSize="1.2rem"
         fontWeight="bold"
@@ -89,8 +87,8 @@ const TreeVisualizer = ({ data }) => {
   });
 
   return (
-    <div className="tree-container" style={{ width: '100%', display: 'flex', justifyContent: 'center', overflow: 'auto', padding: '16px' }}>
-      <svg width="600" height="400" viewBox="0 0 600 400" style={{ overflow: 'visible' }}>
+    <div className="tree-container tree-container-wrapper">
+      <svg width="600" height="400" viewBox="0 0 600 400" className="tree-svg-canvas">
         <TreeNode node={rootNode} pointers={nodePointers} x={300} y={40} level={1} />
       </svg>
     </div>

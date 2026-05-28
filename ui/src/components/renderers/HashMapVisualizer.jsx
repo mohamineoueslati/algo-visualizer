@@ -1,5 +1,3 @@
-import React from 'react';
-
 const HashMapVisualizer = ({ data }) => {
   const { value } = data;
   const entries = Object.entries(value);

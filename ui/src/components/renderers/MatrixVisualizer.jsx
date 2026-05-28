@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MatrixVisualizer = ({ data }) => {
   const { value, pointers = {} } = data; // pointers: { name: [row, col] }
 
@@ -12,26 +10,25 @@ const MatrixVisualizer = ({ data }) => {
   });
 
   return (
-    <div className="matrix-container" style={{ display: 'flex', flexDirection: 'column', gap: '4px', padding: '16px' }}>
+    <div className="matrix-container matrix-container-wrapper">
       {value.map((row, rIdx) => (
-        <div key={rIdx} className="matrix-row" style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
+        <div key={rIdx} className="matrix-row">
           {row.map((cell, cIdx) => {
             const pNames = cellPointers[`${rIdx},${cIdx}`] || [];
             const isHighlight = pNames.length > 0;
             const isMatch = pNames.includes('match');
 
             return (
-              <div key={cIdx} className="matrix-cell-wrapper" style={{ position: 'relative' }}>
-                <div 
-                  className={`array-box ${isMatch ? 'match' : isHighlight ? 'highlight' : ''}`}
-                  style={{ width: '50px', height: '50px', fontSize: '1.2rem' }}
+              <div key={cIdx} className="matrix-cell-wrapper">
+                <div
+                  className={`array-box matrix-cell ${isMatch ? 'match' : isHighlight ? 'highlight' : ''}`}
                 >
                   {cell}
                 </div>
                 {pNames.length > 0 && (
-                  <div className="array-pointers" style={{ position: 'absolute', top: '-15px', left: '50%', transform: 'translateX(-50%)', zIndex: 10 }}>
+                  <div className="array-pointers matrix-pointers">
                     {pNames.filter(n => n !== 'match').map(p => (
-                      <div key={p} className="pointer-badge" style={{ fontSize: '0.65rem', padding: '2px 4px' }}>{p}</div>
+                      <div key={p} className="pointer-badge matrix-pointer-badge">{p}</div>
                     ))}
                   </div>
                 )}

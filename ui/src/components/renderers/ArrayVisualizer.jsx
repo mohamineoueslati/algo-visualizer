@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ArrayVisualizer = ({ data }) => {
   const { value, pointers = {} } = data;
 
@@ -16,7 +14,7 @@ const ArrayVisualizer = ({ data }) => {
         const pNames = indexPointers[idx] || [];
         const isHighlight = pNames.length > 0;
         const isMatch = pNames.includes('match');
-        
+
         return (
           <div key={idx} className="array-item-wrapper animate-in" style={{ animationDelay: `${idx * 0.05}s` }}>
             <div className={`array-box ${isMatch ? 'match' : isHighlight ? 'highlight' : ''}`}>
