@@ -1,5 +1,4 @@
-from core.visualizer import create_state, tree_struct, var_struct
-import copy
+from core.visualizer import create_state, tree_struct
 
 PROBLEM_DEF = {
     "id": "invert_binary_tree",
@@ -67,8 +66,8 @@ def solve(root_list=[4, 2, 7, 1, 3, 6, 9]):
         })
         
         # Invert children recursively
-        left = invert(node.left)
-        right = invert(node.right)
+        left = yield from invert(node.left)
+        right = yield from invert(node.right)
         
         # Swap
         node.left = right
@@ -80,7 +79,7 @@ def solve(root_list=[4, 2, 7, 1, 3, 6, 9]):
         
         return node
         
-    invert(root)
+    yield from invert(root)
     
     yield create_state("Inversion complete!", {
         "tree": tree_struct(root.to_dict(), {"match": "root"})
